@@ -1,0 +1,45 @@
+#!/bin/sh
+
+##
+# Use `rsvg` to convert from a SVG image file to 
+# all the typical Apple Xcode icon pixel sizes.
+#
+# Syntax:
+#
+#     rsvg-convert-svg-to-apple-xcode-icon-pixel-sizes <input-file> [output-file-base]
+#
+# Example:
+#
+#     rsvg-convert-svg-to-apple-xcode-icon-pixel-sizes foo.svg
+#     => outputs a bunch of new files
+#     foo-20x20.png
+#     foo-29x29.png
+#     foo-40x40.png
+#     …
+#
+# Example with output file base name:
+#
+#     rsvg-convert-svg-to-apple-xcode-icon-pixel-sizes foo.svg bar
+#     => outputs a bunch of new files
+#     bar-20x20.png
+#     bar-29x29.png
+#     bar-40x40.png
+#     …
+#
+# ## Tracking
+#
+#   * Command: rsvg-convert-svg-to-apple-xcode-icon-pixel-sizes
+#   * Version: 1.0.0
+#   * Created: 2020-12-01
+#   * Updated: 2018-12-02
+#   * License: GPL-2
+#   * Contact: Joel Parker Henderson (joel@joelparkerhenderson.com)
+##
+
+input_file="$1"
+output_file_base="${2:-${1/.svg/}}"
+for pixels in 20 29 40 58 76 80 87 120 152 167 180 1024; do
+	output_file="${output_file_base}-${pixels}x${pixels}.png"
+	echo "$input_file $output_file"
+	rsvg-convert -h "$pixels" "$input_file" > "$output_file"
+done
