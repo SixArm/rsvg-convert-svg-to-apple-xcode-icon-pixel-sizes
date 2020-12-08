@@ -38,7 +38,7 @@
 
 input_file="$1"
 output_file_base="${2:-${1/.svg/}}"
-for pixels in 20 29 40 58 76 80 87 120 152 167 180 1024; do
+for pixels in 20 29 40 58 60 76 80 87 120 152 167 180 1024; do
 	output_file="${output_file_base}-${pixels}x${pixels}.png"
 	echo "$input_file $output_file"
 	rsvg-convert -h "$pixels" "$input_file" > "$output_file"
